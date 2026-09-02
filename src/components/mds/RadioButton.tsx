@@ -1,36 +1,51 @@
 export type MdsRadioButtonProps = {
   label?: string;
-  hint?: string;
-  showHint?: boolean;
+  supportText?: string;
+  showSupportText?: boolean;
   checked?: boolean;
-  style?: "Outline" | "Solid";
+  size?: "sm" | "md";
+  type?: "Solid" | "Circle";
+  state?: "Default" | "Focused" | "Disabled";
   className?: string;
 };
 
 export default function RadioButton({
   label = "Remember me",
-  hint = "This is a hint text to help user",
-  showHint = true,
-  checked,
-  style = "Outline",
+  supportText = "Save my login details for next time.",
+  showSupportText = false,
+  checked = false,
+  size = "sm",
+  type = "Solid",
+  state = "Default",
   className = "",
 }: MdsRadioButtonProps) {
-  const isChecked = checked ?? style === "Solid";
+  const isDisabled = state === "Disabled";
+  const boxSize = size === "md" ? 18 : 16;
+  const isSolidFill = type === "Solid" && checked;
+
   return (
-    <label className={["flex w-full max-w-[322px] items-start gap-2", className].join(" ")}>
+    <label className={className || `flex w-[280px] max-w-full items-start gap-2 ${isDisabled ? "cursor-not-allowed" : "cursor-pointer"}`}>
       <span className="flex shrink-0 items-center pt-0.5">
         <span
           className={[
-            "flex h-4 w-4 items-center justify-center rounded-full border",
-            isChecked ? "border-[var(--mds-brand-900)]" : "border-[var(--mds-neutral-300)]",
+            "flex shrink-0 items-center justify-center rounded-full border transition-colors",
+            isSolidFill ? "border-[var(--mds-brand-900)] bg-[var(--mds-brand-900)]" : checked ? "border-[var(--mds-brand-900)] bg-white" : "border-[var(--mds-neutral-300)] bg-white",
+            state === "Focused" ? "ring-2 ring-[var(--mds-brand-50)] ring-offset-1" : "",
+            isDisabled ? "opacity-40" : "",
           ].join(" ")}
+          style={{ width: boxSize, height: boxSize }}
         >
-          {isChecked && <span className="h-2 w-2 rounded-full bg-[var(--mds-brand-900)]" />}
+          {checked && (
+            <span
+              className={isSolidFill ? "rounded-full bg-white" : "rounded-full bg-[var(--mds-brand-900)]"}
+              style={{ width: boxSize * 0.4, height: boxSize * 0.4 }}
+            />
+          )}
         </span>
       </span>
       <span className="flex flex-1 flex-col gap-0.5">
         <span className="text-sm leading-5 text-[var(--mds-neutral-700)]">{label}</span>
-        {showHint && <span className="text-xs leading-4 text-[var(--mds-neutral-500)]">{hint}</span>}
+        {showSupportText && <span className="text-xs leading-4 text-[var(--mds-neutral-500)]">{supportText}</span>}
       </span>
     </label>
   );

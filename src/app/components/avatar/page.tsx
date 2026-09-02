@@ -1,5 +1,4 @@
 "use client";
-
 import DocHeader from "@/components/docs/DocHeader";
 import Playground from "@/components/docs/Playground";
 import PropsTable from "@/components/docs/PropsTable";
@@ -13,32 +12,36 @@ export default function AvatarPage() {
       <DocHeader
         eyebrow="Data display"
         title="Avatar"
-        description="Represents a user as a photo, an icon, or initials, with an optional online indicator."
+        description="Represents a user. Six sizes, a placeholder icon or initials fallback, and an optional status icon (online indicator or company badge)."
       />
 
       <Playground
         controls={[
-          { key: "type", label: "Type", type: "select", options: ["Photo", "Icons", "Initials"], default: "Photo" },
-          { key: "initials", label: "Initials", type: "text", default: "OR" },
-          { key: "online", label: "Online indicator", type: "boolean", default: true },
+          { key: "size", label: "Size", type: "select", options: ["xs", "sm", "md", "lg", "xl", "2xl"], default: "md" },
+          { key: "placeholder", label: "Placeholder icon", type: "boolean", default: false },
+          { key: "showText", label: "Show initials", type: "boolean", default: false },
+          { key: "initial", label: "Initials", type: "text", default: "OR" },
+          { key: "statusIcon", label: "Status icon", type: "select", options: ["False", "Online indicator", "Company"], default: "False" },
         ]}
-        render={(v) => <Avatar type={v.type} initials={v.initials} online={v.online} />}
-        code={(v) => `<Avatar type="${v.type}"${v.type === "Initials" ? ` initials="${v.initials}"` : ""}${v.online ? " online" : ""} />`}
+        render={(v) => <Avatar size={v.size} placeholder={v.placeholder} showText={v.showText} initial={v.initial} statusIcon={v.statusIcon} />}
+        code={(v) => `<Avatar size="${v.size}"${v.showText ? ` showText initial="${v.initial}"` : v.placeholder ? " placeholder" : ""}${v.statusIcon !== "False" ? ` statusIcon="${v.statusIcon}"` : ""} />`}
       />
 
       <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Props</h2>
       <PropsTable
         rows={[
-          { name: "type", type: '"Photo" | "Icons" | "Initials"', default: '"Photo"', description: "Which avatar content to render." },
-          { name: "initials", type: "string", default: '"OR"', description: "Text shown when type is Initials." },
-          { name: "online", type: "boolean", default: "true", description: "Shows the green online indicator dot." },
-          { name: "size", type: "number", default: "44", description: "Width and height in pixels." },
+          { name: "size", type: '"xs" | "sm" | "md" | "lg" | "xl" | "2xl"', default: '"xs"', description: "Avatar diameter." },
+          { name: "placeholder", type: "boolean", default: "False", description: "Shows a generic person icon instead of a photo." },
+          { name: "showText", type: "boolean", default: "False", description: "Shows initials instead of a photo." },
+          { name: "initial", type: "string", default: '"OR"', description: "Text shown when showText is true." },
+          { name: "statusIcon", type: '"False" | "Online indicator" | "Company"', default: '"False"', description: "Badge in the corner." },
+          { name: "state", type: '"Default" | "Focused"', default: '"Default"', description: "Focus ring state." },
         ]}
       />
 
       <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Variables used</h2>
       <p className="doc-prose mb-4 -mt-2 text-[13px] text-[var(--mds-neutral-500)]">
-        From the <strong>Avatar</strong> frame in the MDS — Variable Figma file.
+        From the <strong>Avatar</strong> component set on the <em>Avatar</em> page in the MDS — Variable Figma file.
       </p>
       <VariablesTable rows={variables.avatar} />
     </div>

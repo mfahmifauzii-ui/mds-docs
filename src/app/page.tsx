@@ -21,7 +21,7 @@ export default function Home() {
         </p>
         <div className="mt-6 flex items-center gap-3">
           <Link href="/components/button">
-            <Button label="Browse components" />
+            <Button btnText="Browse components" />
           </Link>
           <a
             href="https://www.figma.com/design/0qF2PkSwkIn8EWe2qhWmSE"
@@ -36,15 +36,15 @@ export default function Home() {
 
       <div className="mb-14 overflow-hidden rounded-xl border border-[var(--mds-neutral-100)]">
         <div className="flex flex-wrap items-center gap-8 bg-[var(--mds-neutral-50)] p-10">
-          <Avatar type="Photo" />
-          <InputField showHint className="max-w-[260px]" />
+          <Avatar showText initial="OR" statusIcon="Online indicator" />
+          <InputField showHintText className="max-w-[260px]" />
           <div className="flex flex-col gap-2">
-            <Button label="Continue" />
-            <Button label="Delete account" destructive />
+            <Button btnText="Continue" />
+            <Button btnText="Delete account" destructive />
           </div>
           <div className="flex flex-col gap-2">
-            <Badge label="Verified" tone="brand" />
-            <Badge label="Pending" tone="neutral" />
+            <Badge label="Verified" color="Primary" />
+            <Badge label="Pending" color="Gray" />
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 "use client";
-
 import DocHeader from "@/components/docs/DocHeader";
 import Playground from "@/components/docs/Playground";
 import PropsTable from "@/components/docs/PropsTable";
@@ -13,33 +12,38 @@ export default function RadioButtonPage() {
       <DocHeader
         eyebrow="Form & Input"
         title="Radio button"
-        description="A single-select control for choosing one option from a set."
+        description="A single-select control. Solid or Circle type, two sizes, and Default/Focused/Disabled states."
       />
 
       <Playground
         controls={[
           { key: "label", label: "Label", type: "text", default: "Remember me" },
-          { key: "hint", label: "Hint", type: "text", default: "This is a hint text to help user" },
-          { key: "showHint", label: "Show hint", type: "boolean", default: true },
-          { key: "style", label: "Style", type: "select", options: ["Outline", "Solid"], default: "Outline" },
+          { key: "type", label: "Type", type: "select", options: ["Solid", "Circle"], default: "Solid" },
+          { key: "size", label: "Size", type: "select", options: ["sm", "md"], default: "sm" },
+          { key: "state", label: "State", type: "select", options: ["Default", "Focused", "Disabled"], default: "Default" },
+          { key: "checked", label: "Checked", type: "boolean", default: true },
+          { key: "showSupportText", label: "Support text", type: "boolean", default: false },
         ]}
-        render={(v) => <RadioButton label={v.label} hint={v.hint} showHint={v.showHint} style={v.style} />}
-        code={(v) => `<RadioButton\n  label="${v.label}"\n  style="${v.style}"${v.showHint ? `\n  hint="${v.hint}"` : "\n  showHint={false}"}\n/>`}
+        render={(v) => <RadioButton label={v.label} type={v.type} size={v.size} state={v.state} checked={v.checked} showSupportText={v.showSupportText} />}
+        code={(v) => `<RadioButton\n  label="${v.label}"\n  type="${v.type}"\n  size="${v.size}"\n  state="${v.state}"${v.checked ? "\n  checked" : ""}${v.showSupportText ? "\n  showSupportText" : ""}\n/>`}
       />
 
       <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Props</h2>
       <PropsTable
         rows={[
           { name: "label", type: "string", default: '"Remember me"', description: "Option label." },
-          { name: "hint", type: "string", default: '"This is a hint text…"', description: "Supporting text below the label." },
-          { name: "showHint", type: "boolean", default: "true", description: "Whether the hint line renders." },
-          { name: "style", type: '"Outline" | "Solid"', default: '"Outline"', description: "Unselected vs. selected appearance." },
+          { name: "supportText", type: "string", default: '"Save my login details…"', description: "Secondary line below the label." },
+          { name: "showSupportText", type: "boolean", default: "False", description: "Whether the support line renders." },
+          { name: "checked", type: "boolean", default: "False", description: "Selected state." },
+          { name: "size", type: '"sm" | "md"', default: '"sm"', description: "Control size." },
+          { name: "type", type: '"Solid" | "Circle"', default: '"Solid"', description: "Fill style when selected." },
+          { name: "state", type: '"Default" | "Focused" | "Disabled"', default: '"Default"', description: "Interaction state." },
         ]}
       />
 
       <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Variables used</h2>
       <p className="doc-prose mb-4 -mt-2 text-[13px] text-[var(--mds-neutral-500)]">
-        From the <strong>Radio Button</strong> frame in the MDS — Variable Figma file.
+        From the <strong>Radio Button</strong> component set on the <em>Checkbox &amp; Radio Button</em> page in the MDS — Variable Figma file.
       </p>
       <VariablesTable rows={variables["radio-button"]} />
     </div>

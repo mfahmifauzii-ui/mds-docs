@@ -4,48 +4,83 @@ import { useState } from "react";
 export type MdsAccordionProps = {
   title?: string;
   description?: string;
+  style?: "Default" | "Border" | "Line";
+  state?: "Default" | "Hover" | "Expand" | "Disabled";
   flipIcon?: boolean;
+  leftIcon?: boolean;
   defaultExpanded?: boolean;
   className?: string;
 };
 
 export default function Accordion({
   title = "Accordion title",
-  description = "Supporting text for the accordion item goes here.",
+  description = "Accordion description goes here, explaining what this section contains.",
+  style = "Default",
+  state = "Default",
   flipIcon = false,
+  leftIcon = true,
   defaultExpanded = false,
   className = "",
 }: MdsAccordionProps) {
-  const [expand, setExpand] = useState(defaultExpanded);
+  const [hoverState, setHoverState] = useState(false);
+  const isDisabled = state === "Disabled";
+  const [expand, setExpand] = useState(defaultExpanded || state === "Expand");
+  const effectiveExpand = state === "Expand" ? true : state === "Default" || state === "Hover" ? expand : false;
+  const isHover = !isDisabled && (state === "Hover" || hoverState);
+
+  const wrapClass =
+    style === "Border"
+      ? "border border-[var(--mds-neutral-300)] rounded-lg overflow-hidden"
+      : style === "Line"
+      ? "border-t border-b border-[var(--mds-neutral-300)]"
+      : "border-b border-[var(--mds-neutral-300)]";
+
+  const headerBg = isDisabled ? "" : isHover ? (style === "Default" ? "bg-[var(--mds-neutral-100)]" : "bg-[var(--mds-neutral-100)]") : effectiveExpand && style === "Border" ? "bg-[var(--mds-neutral-50)]" : "";
+
+  const titleColor = isDisabled ? "text-[var(--mds-neutral-400)]" : "text-[var(--mds-neutral-900)]";
+  const iconColor = isDisabled ? "text-[var(--mds-neutral-400)]" : "text-[var(--mds-neutral-900)]";
+
+  const Chevron = (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className={["shrink-0 transition-transform", iconColor, effectiveExpand ? "rotate-180" : ""].join(" ")}>
+      <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+
+  const Star = (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className={iconColor}>
+      <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.7 7-6.3-3.8L5.7 21l1.7-7L2 9.2l7.1-.6L12 2z" />
+    </svg>
+  );
+
   return (
-    <div className={["w-full max-w-[350px] overflow-hidden rounded-none border border-[var(--mds-neutral-300)] bg-white", className].join(" ")}>
+    <div className={className || `w-[328px] max-w-full ${wrapClass}`}>
       <button
         type="button"
-        onClick={() => setExpand((v) => !v)}
-        className={[
-          "flex w-full items-center gap-1.5 px-3.5 py-2.5 text-left",
-          expand ? "" : "border-b border-[var(--mds-neutral-300)]",
-        ].join(" ")}
+        disabled={isDisabled}
+        onMouseEnter={() => setHoverState(true)}
+        onMouseLeave={() => setHoverState(false)}
+        onClick={() => !isDisabled && state !== "Expand" && setExpand((e) => !e)}
+        className={`flex w-full items-center gap-4 p-4 text-left ${headerBg} ${isDisabled ? "cursor-not-allowed" : "cursor-pointer"}`}
       >
         {!flipIcon && (
-          <span className="flex-1 text-sm font-semibold leading-5 text-[var(--mds-neutral-900)]">{title}</span>
+          <>
+            <div className="flex flex-1 items-center gap-3 min-w-0">
+              {leftIcon && Star}
+              <span className={`flex-1 text-base font-semibold ${titleColor}`}>{title}</span>
+            </div>
+            {Chevron}
+          </>
         )}
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          className={["shrink-0 text-[var(--mds-neutral-500)] transition-transform", expand ? "rotate-180" : ""].join(" ")}
-        >
-          <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
         {flipIcon && (
-          <span className="flex-1 text-sm font-semibold leading-5 text-[var(--mds-neutral-900)]">{title}</span>
+          <>
+            {Chevron}
+            <span className={`flex-1 text-base font-semibold ${titleColor}`}>{title}</span>
+          </>
         )}
       </button>
-      {expand && (
-        <div className="border-b border-[var(--mds-neutral-300)] px-3.5 pb-2.5 pt-1">
-          <p className="text-xs leading-4 text-[var(--mds-neutral-700)]">{description}</p>
+      {effectiveExpand && (
+        <div className={`px-4 pb-4 text-sm leading-5 text-[var(--mds-neutral-700)] ${style === "Border" ? "border-t border-[var(--mds-neutral-300)] pt-4 bg-white" : ""}`}>
+          {description}
         </div>
       )}
     </div>

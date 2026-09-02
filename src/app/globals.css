@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
+:root {
+  /* Brand */
+  --mds-brand-900: #00487a;
+  --mds-brand-700: #0a5c94;
+  --mds-brand-50: #e3fafc;
+  --mds-brand-100: #e3f9fb;
+
+  /* Neutral scale (from MDS Variable) */
+  --mds-neutral-900: #101828;
+  --mds-neutral-700: #344054;
+  --mds-neutral-500: #667085;
+  --mds-neutral-400: #98a2b3;
+  --mds-neutral-300: #d0d5dd;
+  --mds-neutral-100: #f2f4f7;
+  --mds-neutral-50: #f9fafb;
+  --mds-white: #ffffff;
+
+  /* Semantic */
+  --mds-success: #20872e;
+  --mds-danger: #a01713;
+  --mds-danger-50: #fdf1f0;
+
+  /* Radius */
+  --mds-radius-sm: 6px;
+  --mds-radius-md: 8px;
+  --mds-radius-full: 9999px;
+
+  /* Type */
+  --mds-text-cta: 14px;
+  --mds-text-title: 14px;
+  --mds-text-body: 14px;
+  --mds-text-label: 14px;
+  --mds-text-hint: 12px;
+  --mds-text-badge: 14px;
+
+  /* Shadow */
+  --mds-shadow-sm: 0px 1px 2px 0px rgba(16,24,40,0.06), 0px 1px 3px 0px rgba(16,24,40,0.1);
+  --mds-shadow-md: 0px 2px 4px -2px rgba(16,24,40,0.06), 0px 4px 8px -2px rgba(16,24,40,0.1);
+  --mds-shadow-up: 0px -4px 20px 0px rgba(16,24,40,0.06);
+
+  --doc-sidebar-w: 264px;
+  --doc-toc-w: 220px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--mds-white);
+  color: var(--mds-neutral-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--mds-brand-50);
+  color: var(--mds-brand-900);
+}
+
+.doc-prose h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--mds-neutral-900);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 5rem;
+}
+
+.doc-prose p {
+  color: var(--mds-neutral-500);
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.mds-checker {
+  background-image: linear-gradient(45deg, var(--mds-neutral-100) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--mds-neutral-100) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--mds-neutral-100) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--mds-neutral-100) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}

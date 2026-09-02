@@ -16,7 +16,8 @@ export default function Home() {
         <p className="text-[15px] leading-7 text-[var(--mds-neutral-500)]">
           MDS is the shared component library behind our product surfaces — buttons, inputs, navigation
           and data-display patterns, kept in sync with the MDS Variable file in Figma. Every component on
-          this site renders the real implementation, not a screenshot.
+          this site renders the real implementation, not a screenshot. Each one ships with a live playground
+          to try every prop, and a table of the Figma variables it pulls from.
         </p>
         <div className="mt-6 flex items-center gap-3">
           <Link href="/components/button">

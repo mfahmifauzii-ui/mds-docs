@@ -1,8 +1,11 @@
+"use client";
+
 import DocHeader from "@/components/docs/DocHeader";
-import Stage from "@/components/docs/Stage";
-import CodeBlock from "@/components/docs/CodeBlock";
+import Playground from "@/components/docs/Playground";
 import PropsTable from "@/components/docs/PropsTable";
+import VariablesTable from "@/components/docs/VariablesTable";
 import LabelText from "@/components/mds/LabelText";
+import { variables } from "@/data/variables";
 
 export default function LabelTextPage() {
   return (
@@ -10,32 +13,33 @@ export default function LabelTextPage() {
       <DocHeader
         eyebrow="Form & Input"
         title="Label text"
-        description="The text label paired with form fields. Can indicate a mandatory field or attach an info tooltip trigger."
+        description="A standalone field label, with an optional required marker and info affordance. Used above inputs, selects, and other form controls."
       />
 
-      <Stage label="Mandatory × Info icon">
-        <div className="flex flex-col gap-3">
-          <LabelText />
-          <LabelText mandatory />
-          <LabelText infoIcon />
-          <LabelText mandatory infoIcon />
-        </div>
-      </Stage>
+      <Playground
+        controls={[
+          { key: "text", label: "Text", type: "text", default: "Input Label" },
+          { key: "mandatory", label: "Mandatory", type: "boolean", default: false },
+          { key: "infoIcon", label: "Info icon", type: "boolean", default: false },
+        ]}
+        render={(v) => <LabelText text={v.text} mandatory={v.mandatory} infoIcon={v.infoIcon} />}
+        code={(v) => `<LabelText text="${v.text}"${v.mandatory ? " mandatory" : ""}${v.infoIcon ? " infoIcon" : ""} />`}
+      />
 
-      <div className="mt-4">
-        <CodeBlock code={`<LabelText text="Input Label" />
-<LabelText text="Input Label" mandatory />
-<LabelText text="Input Label" infoIcon />`} />
-      </div>
-
-      <h2 className="mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Props</h2>
+      <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Props</h2>
       <PropsTable
         rows={[
-          { name: "text", type: "string", default: '"Input Label"', description: "Label copy." },
-          { name: "mandatory", type: "boolean", default: "false", description: "Appends a required-field asterisk." },
-          { name: "infoIcon", type: "boolean", default: "false", description: "Shows an info glyph for a tooltip trigger." },
+          { name: "text", type: "string", default: '"Input Label"', description: "Label text." },
+          { name: "mandatory", type: "boolean", default: "false", description: "Shows a red asterisk to mark the field as required." },
+          { name: "infoIcon", type: "boolean", default: "false", description: "Shows an info glyph, usually paired with a tooltip." },
         ]}
       />
+
+      <h2 className="doc-prose mt-10 mb-3 text-lg font-semibold text-[var(--mds-neutral-900)]">Variables used</h2>
+      <p className="doc-prose mb-4 -mt-2 text-[13px] text-[var(--mds-neutral-500)]">
+        From the <strong>Label text</strong> frame in the MDS — Variable Figma file.
+      </p>
+      <VariablesTable rows={variables["label-text"]} />
     </div>
   );
 }

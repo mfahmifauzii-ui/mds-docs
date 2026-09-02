@@ -25,10 +25,10 @@ export default function Sidebar() {
                     key={item.href}
                     href={item.href}
                     className={[
-                      "rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                      "rounded-md border-l-2 px-2.5 py-1.5 text-sm transition-colors",
                       active
-                        ? "bg-[var(--mds-brand-50)] font-medium text-[var(--mds-brand-900)]"
-                        : "text-[var(--mds-neutral-700)] hover:bg-[var(--mds-neutral-50)] hover:text-[var(--mds-neutral-900)]",
+                        ? "border-[var(--mds-brand-900)] bg-[var(--mds-brand-50)] font-medium text-[var(--mds-brand-900)]"
+                        : "border-transparent text-[var(--mds-neutral-700)] hover:bg-[var(--mds-neutral-50)] hover:text-[var(--mds-neutral-900)]",
                     ].join(" ")}
                   >
                     {item.label}

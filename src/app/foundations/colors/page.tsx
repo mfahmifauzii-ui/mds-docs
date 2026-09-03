@@ -25,11 +25,11 @@ export default function ColorsPage() {
       />
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {swatches.map((s) => (
-          <div key={s.token} className="overflow-hidden rounded-lg border border-[var(--mds-neutral-100)]">
+          <div key={s.token} className="overflow-hidden rounded-lg border border-[var(--doc-line)]">
             <div className="h-16" style={{ backgroundColor: s.hex }} />
             <div className="p-3">
-              <p className="text-sm font-medium text-[var(--mds-neutral-900)]">{s.name}</p>
-              <p className="font-mono text-xs text-[var(--mds-neutral-500)]">{s.hex}</p>
+              <p className="text-sm font-medium text-[var(--doc-text)]">{s.name}</p>
+              <p className="font-mono text-xs text-[var(--doc-text-faint)]">{s.hex}</p>
             </div>
           </div>
         ))}

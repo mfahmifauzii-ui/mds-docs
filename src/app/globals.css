@@ -1,18 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
 :root {
-  /* Brand */
+  /* --- MDS brand tokens: keep authentic to the Figma file. Used INSIDE component previews only. --- */
   --mds-brand-900: #00487a;
   --mds-brand-700: #0a5c94;
   --mds-brand-50: #e3fafc;
   --mds-brand-100: #e3f9fb;
-
-  /* Neutral scale (from MDS Variable) */
   --mds-neutral-900: #101828;
   --mds-neutral-700: #344054;
   --mds-neutral-500: #667085;
@@ -21,32 +21,30 @@
   --mds-neutral-100: #f2f4f7;
   --mds-neutral-50: #f9fafb;
   --mds-white: #ffffff;
-
-  /* Semantic */
   --mds-success: #20872e;
   --mds-danger: #a01713;
   --mds-danger-50: #fdf1f0;
-
-  /* Radius */
   --mds-radius-sm: 6px;
   --mds-radius-md: 8px;
   --mds-radius-full: 9999px;
-
-  /* Type */
-  --mds-text-cta: 14px;
-  --mds-text-title: 14px;
-  --mds-text-body: 14px;
-  --mds-text-label: 14px;
-  --mds-text-hint: 12px;
-  --mds-text-badge: 14px;
-
-  /* Shadow */
   --mds-shadow-sm: 0px 1px 2px 0px rgba(16,24,40,0.06), 0px 1px 3px 0px rgba(16,24,40,0.1);
   --mds-shadow-md: 0px 2px 4px -2px rgba(16,24,40,0.06), 0px 4px 8px -2px rgba(16,24,40,0.1);
   --mds-shadow-up: 0px -4px 20px 0px rgba(16,24,40,0.06);
 
-  --doc-sidebar-w: 264px;
-  --doc-toc-w: 220px;
+  /* --- Handbook chrome tokens: govern the DOCS SITE shell (nav, headings, chips) --- */
+  --doc-bg: #f7f7fc;
+  --doc-surface: #ffffff;
+  --doc-surface-2: #f1f1f9;
+  --doc-text: #1e1b2e;
+  --doc-text-dim: #383455;
+  --doc-text-faint: #6b6684;
+  --doc-line: #e2e0f0;
+  --doc-accent: #4f46e5;
+  --doc-accent-soft: #4f46e514;
+  --doc-glow-1: #eae8fb;
+  --doc-glow-2: #e3e6fb;
+
+  --doc-sidebar-w: 272px;
 }
 
 html {
@@ -54,28 +52,52 @@ html {
 }
 
 body {
-  background: var(--mds-white);
-  color: var(--mds-neutral-900);
+  background:
+    radial-gradient(1100px 560px at 8% -10%, var(--doc-glow-1) 0%, transparent 60%),
+    radial-gradient(800px 460px at 100% 0%, var(--doc-glow-2) 0%, transparent 55%),
+    var(--doc-bg);
+  color: var(--doc-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--mds-brand-50);
-  color: var(--mds-brand-900);
+  background: var(--doc-accent-soft);
+  color: var(--doc-accent);
+}
+
+/* Chapter-tag style eyebrow, used by DocHeader */
+.doc-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--doc-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.doc-eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--doc-accent);
+  box-shadow: 0 0 0 3px var(--doc-accent-soft);
 }
 
 .doc-prose h2 {
+  font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--mds-neutral-900);
+  color: var(--doc-text);
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   scroll-margin-top: 5rem;
 }
 
 .doc-prose p {
-  color: var(--mds-neutral-500);
+  color: var(--doc-text-faint);
   line-height: 1.6;
   font-size: 14px;
 }
@@ -87,4 +109,15 @@ body {
     linear-gradient(-45deg, transparent 75%, var(--mds-neutral-100) 75%);
   background-size: 16px 16px;
   background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+}
+
+/* doc chip — mono pill used for tags/collections in the handbook chrome */
+.doc-chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: var(--doc-accent-soft);
+  color: var(--doc-accent);
+  white-space: nowrap;
 }

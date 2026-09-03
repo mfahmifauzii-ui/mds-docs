@@ -2,10 +2,10 @@ export type PropRow = { name: string; type: string; default?: string; descriptio
 
 export default function PropsTable({ rows }: { rows: PropRow[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-[var(--mds-neutral-100)]">
+    <div className="overflow-hidden rounded-xl border border-[var(--doc-line)] bg-[var(--doc-surface)]">
       <table className="w-full border-collapse text-left text-sm">
         <thead>
-          <tr className="border-b border-[var(--mds-neutral-100)] bg-[var(--mds-neutral-50)] text-xs uppercase tracking-wide text-[var(--mds-neutral-400)]">
+          <tr className="border-b border-[var(--doc-line)] bg-[var(--doc-surface-2)] font-mono text-[10.5px] uppercase tracking-[0.08em] text-[var(--doc-text-faint)]">
             <th className="px-4 py-2.5 font-medium">Prop</th>
             <th className="px-4 py-2.5 font-medium">Type</th>
             <th className="px-4 py-2.5 font-medium">Default</th>
@@ -14,11 +14,11 @@ export default function PropsTable({ rows }: { rows: PropRow[] }) {
         </thead>
         <tbody>
           {rows.map((r, i) => (
-            <tr key={r.name} className={i !== rows.length - 1 ? "border-b border-[var(--mds-neutral-100)]" : ""}>
-              <td className="px-4 py-2.5 font-mono text-[13px] text-[var(--mds-brand-900)]">{r.name}</td>
-              <td className="px-4 py-2.5 font-mono text-[13px] text-[var(--mds-neutral-500)]">{r.type}</td>
-              <td className="px-4 py-2.5 font-mono text-[13px] text-[var(--mds-neutral-500)]">{r.default ?? "—"}</td>
-              <td className="px-4 py-2.5 text-[var(--mds-neutral-700)]">{r.description}</td>
+            <tr key={r.name} className={i !== rows.length - 1 ? "border-b border-[var(--doc-line)]" : ""}>
+              <td className="px-4 py-2.5 font-mono text-[13px]" style={{ color: "var(--doc-accent)" }}>{r.name}</td>
+              <td className="px-4 py-2.5 font-mono text-[12.5px] text-[var(--doc-text-faint)]">{r.type}</td>
+              <td className="px-4 py-2.5 font-mono text-[12.5px] text-[var(--doc-text-faint)]">{r.default ?? "—"}</td>
+              <td className="px-4 py-2.5 text-[13px] text-[var(--doc-text-dim)]">{r.description}</td>
             </tr>
           ))}
         </tbody>

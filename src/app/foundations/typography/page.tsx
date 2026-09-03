@@ -15,11 +15,11 @@ export default function TypographyPage() {
         title="Typography"
         description="MDS uses Inter across every component, with a small set of weight and size pairs kept consistent between Figma and code."
       />
-      <div className="divide-y divide-[var(--mds-neutral-100)] rounded-lg border border-[var(--mds-neutral-100)]">
+      <div className="divide-y divide-[var(--doc-line)] rounded-lg border border-[var(--doc-line)]">
         {scale.map((s) => (
           <div key={s.label} className="flex items-center justify-between gap-4 px-4 py-4">
-            <span className={[s.cls, "text-[var(--mds-neutral-900)]"].join(" ")}>{s.label} — The quick brown fox</span>
-            <span className="shrink-0 font-mono text-xs text-[var(--mds-neutral-400)]">{s.size} / {s.weight}</span>
+            <span className={[s.cls, "text-[var(--doc-text)]"].join(" ")}>{s.label} — The quick brown fox</span>
+            <span className="shrink-0 font-mono text-xs text-[var(--doc-text-faint)]">{s.size} / {s.weight}</span>
           </div>
         ))}
       </div>
